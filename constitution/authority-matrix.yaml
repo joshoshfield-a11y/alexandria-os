@@ -1,0 +1,59 @@
+# Authority Matrix — Decision Rights By Evidence Status
+# No claim may advertise a stronger conclusion than its weakest relevant axis permits.
+
+authority_matrix:
+  metaphorical_or_symbolic:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: sometimes
+    may_automate_consequential_decisions: false
+    may_be_presented_as_established_fact: false
+    label_required: "Non-empirical / Symbolic / Metaphorical"
+
+  unverified_observation:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: "with safeguards"
+    may_automate_consequential_decisions: false
+    may_be_presented_as_established_fact: false
+    label_required: "Unverified Observation"
+
+  plausible_hypothesis:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: "in reversible pilots"
+    may_automate_consequential_decisions: false
+    may_be_presented_as_established_fact: false
+    label_required: "Hypothesis — Not Tested"
+
+  tested_mechanism:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: true
+    may_automate_consequential_decisions: "limited, with monitoring"
+    may_be_presented_as_established_fact: "not automatically"
+    label_required: "Tested Mechanism — Implementation Verified"
+
+  independently_replicated:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: true
+    may_automate_consequential_decisions: "possibly, with appeals and audits"
+    may_be_presented_as_established_fact: "yes, within scope"
+    label_required: "Independently Replicated"
+
+  formal_proof:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: true
+    may_automate_consequential_decisions: "only if implementation and context also validate"
+    may_be_presented_as_established_fact: "only for proved proposition"
+    label_required: "Formal Proof — Domain Limited"
+
+  operational_validation:
+    may_inspire: true
+    may_guide_research: true
+    may_affect_low_risk_design: true
+    may_automate_consequential_decisions: "bounded, with kill switch"
+    may_be_presented_as_established_fact: "yes, within validated scope"
+    label_required: "Operationally Validated"
