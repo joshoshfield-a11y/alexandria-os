@@ -1,0 +1,67 @@
+# Pre-Mortem Gate
+# Before implementing any major feature, run this structured review.
+
+pre_mortem_gate:
+  required_for_tiers: [T2, T3, T4]
+
+  questions:
+    intended_outcome:
+      prompt: "What exactly do we expect to happen?"
+      required: true
+
+    primary_metric:
+      prompt: "How will we measure success?"
+      required: true
+
+    counter_metric:
+      prompt: "What harmful behavior could increase the primary metric while degrading the real objective?"
+      required: true
+
+    likely_gaming:
+      prompt: "How would a rational actor game this system?"
+      required: true
+
+    likely_second_order_effect:
+      prompt: "What happens after everyone adapts to the new rule?"
+      required: true
+
+    excluded_population_or_case:
+      prompt: "Who or what is left out of this design?"
+      required: true
+
+    hidden_cost:
+      prompt: "What labor, time, risk, or subsidy is not visible?"
+      required: true
+
+    commons_affected:
+      prompt: "What shared resources does this consume or deplete?"
+      required: true
+
+    old_constraint_removed:
+      prompt: "What safeguard, check, or limit are we removing?"
+      required: false
+
+    original_failure_mode_of_constraint:
+      prompt: "If removing a safeguard, what failure mode did it originally prevent?"
+      required_if: old_constraint_removed is not empty
+
+    irreversible_actions:
+      prompt: "What cannot be undone?"
+      required: true
+
+    rollback_plan:
+      prompt: "How do we undo this if it fails?"
+      required: true
+
+    dissenting_case:
+      prompt: "What is the strongest argument against doing this?"
+      required: true
+
+    owner:
+      prompt: "Who is accountable for this decision and its outcomes?"
+      required: true
+
+  approval_requirements:
+    T2: "Team lead + one independent reviewer"
+    T3: "Technical lead + product lead + independent reviewer"
+    T4: "Full review board + external auditor + legal review"
