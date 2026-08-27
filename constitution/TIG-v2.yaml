@@ -1,0 +1,51 @@
+# Translation Integrity Gate v2
+# Semantic truth, implementation correctness, and operational usefulness
+# are separate axes. Success on one cannot upgrade a claim on the others.
+
+TIGv2:
+  version: "2.0.0"
+  governing_axiom: >
+    Every representation is a lossy intervention. A name, map, score, model,
+    ontology, dashboard, narrative, or interface both reveals and conceals;
+    once it affects decisions, it also changes the system it claims to describe.
+
+  three_axes:
+    semantic:
+      question: "Is the claim well-defined, non-equivocal, and appropriate to the domain?"
+      validated_by: [definitions, scope boundaries, type discipline, source interpretation]
+      does_not_prove: [system works in code, system works in the world]
+      states:
+        0: absent
+        1: asserted
+        2: specified
+        3: independently_tested
+        4: stress_tested_or_formally_verified
+        5: replicated_or_operationally_validated
+
+    implementation:
+      question: "Does the specified mechanism do what the specification says?"
+      validated_by: [tests, proofs, invariants, traces, reproducible builds, audits]
+      does_not_prove: [mechanism solves intended real-world problem]
+      states: *semantic.states
+
+    operational:
+      question: "Does deployment improve the intended outcome under real constraints?"
+      validated_by: [outcome studies, field tests, controlled comparisons, monitoring]
+      does_not_prove: [explanation, ontology, or mechanism is fundamentally true]
+      states: *semantic.states
+
+  cross_domain_requirements:
+    relation_type: required
+    preservation_contract: required
+    independent_oracles: "at least 2 where feasible"
+    falsifier: required
+    three_axis_status_vector: required
+    scope_and_exclusions: required
+
+  rejection_conditions:
+    - Missing relation type
+    - Missing preservation contract
+    - Missing independent oracles (when feasible)
+    - Missing falsifier
+    - Missing three-axis status vector
+    - Missing scope and exclusion conditions
