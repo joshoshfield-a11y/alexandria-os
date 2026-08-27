@@ -1,0 +1,78 @@
+# Metric Integrity Validator
+# Every metric must declare what it is NOT.
+# Prevents Campbell's Law and Goodhart's Law corruption.
+
+validator:
+  name: metric_integrity
+  version: "1.0.0"
+
+  campbell_goodhart_defense:
+    principle: >
+      Once a measure becomes a target, optimization can break its connection
+      to the real objective. Heavy use of a quantitative indicator for
+      decision-making creates pressure to corrupt the indicator and the
+      process it monitors.
+
+  required_for_every_metric:
+    - objective_statement
+    - counter_metrics.min_items_1
+    - gaming_paths.min_items_1
+    - off_dashboard_audit.method
+    - off_dashboard_audit.cadence
+    - expiry.review_after_days
+
+  gaming_model_template:
+    paths_to_check:
+      - superficial_completion
+      - premature_closure
+      - avoidance_of_difficult_tasks
+      - output_inflation
+      - passing_self_authored_tests
+      - verbose_output_masking_incompleteness
+      - early_closure
+      - avoiding_uncertain_work
+
+    scoring:
+      - "If gaming_paths < 2: WARNING — insufficient gaming analysis"
+      - "If gaming_paths < 1: REJECT — gaming model is required"
+
+  counter_metric_requirements:
+    minimum_count: 1
+    types_to_include:
+      - verified_error_rate
+      - user_rework_rate
+      - unresolved_issue_rate
+      - time_to_correction
+      - blind_human_evaluation
+      - adversarial_task_performance
+      - delayed_user_outcome
+
+  off_dashboard_audit:
+    methods:
+      - blind_human_evaluation
+      - adversarial_task_suite
+      - delayed_outcome_check
+      - independent_third_party_sampling
+      - cross_reference_with_external_data
+
+    cadence_requirements:
+      T0: optional
+      T1: monthly
+      T2: bi_weekly
+      T3: weekly
+      T4: continuous
+
+  expiry_rules:
+    maximum_without_review:
+      T0: 90_days
+      T1: 60_days
+      T2: 30_days
+      T3: 14_days
+      T4: 7_days
+
+    randomization_recommended: true
+    retirement_conditions:
+      - metric_no_longer_tracks_objective
+      - gaming_detected_and_uncorrectable
+      - new_better_metric_available
+      - system_changed_making_metric_irrelevant
