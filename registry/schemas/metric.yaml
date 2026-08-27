@@ -1,0 +1,89 @@
+# Metric Record Schema
+# Stores measurements that influence behavior or decisions.
+# Cannot proceed without: Objective, counter-metric, gaming model, audit cadence.
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: ARCF-Metric
+id: "https://alexandria.os/schemas/metric"
+
+type: object
+required:
+  - id
+  - kind
+  - name
+  - underlying_objective
+  - counter_metrics
+  - gaming_paths
+  - off_dashboard_audit
+  - expiry
+
+properties:
+  id:
+    type: string
+    pattern: "^MET-[0-9]{4}-[0-9]+$"
+
+  kind:
+    const: "metric"
+
+  name:
+    type: string
+    maxLength: 100
+
+  underlying_objective:
+    type: string
+    description: "What real condition this metric merely stands in for"
+
+  counter_metrics:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      properties:
+        name: { type: string }
+        why_counter: { type: string }
+        measurement_method: { type: string }
+
+  gaming_paths:
+    type: array
+    minItems: 1
+    items: { type: string }
+    description: "How a capable actor could optimize this score without serving its intent"
+
+  off_dashboard_audit:
+    type: object
+    properties:
+      method: { type: string }
+      cadence: { type: string }
+      independent: { type: boolean }
+      human_review: { enum: [required, optional, none] }
+      delayed_outcome_check: { enum: [required, optional, none] }
+
+  expiry:
+    type: object
+    properties:
+      review_after_days: { type: integer, minimum: 1 }
+      randomization: { type: boolean }
+      retirement_condition: { type: string }
+
+  current_value:
+    type: number
+
+  history:
+    type: array
+    items:
+      type: object
+      properties:
+        timestamp: { type: string, format: date-time }
+        value: { type: number }
+        context: { type: string }
+
+  reflexivity_risk:
+    type: string
+    description: "How publication of this metric may change the system it measures"
+
+  status_vector:
+    type: object
+    properties:
+      semantic: { type: integer, minimum: 0, maximum: 5 }
+      implementation: { type: integer, minimum: 0, maximum: 5 }
+      operational: { type: integer, minimum: 0, maximum: 5 }
