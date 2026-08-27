@@ -1,0 +1,114 @@
+# Admission Validator
+# Runs when a record is created or changed.
+# Rejects cross-domain relations missing required fields.
+
+validator:
+  name: admission
+  version: "1.0.0"
+
+  applies_to: [claim, relation, metric, agent, decision]
+
+  checks:
+    claim:
+      required_fields:
+        - id
+        - title
+        - statement
+        - claim_type
+        - scope.applies_when
+        - scope.excludes
+        - status_vector.semantic
+        - status_vector.implementation
+        - status_vector.operational
+        - evidence.sources
+        - falsifier.condition
+        - falsifier.threshold
+        - decision_rights
+        - review.owner
+        - review.next_review
+
+      type_specific:
+        metaphorical:
+          decision_rights.may_automate: MUST_BE_FALSE
+          decision_rights.may_block: MUST_BE_FALSE
+          warning: "Metaphorical claims cannot authorize factual conclusions or consequential automation"
+
+        interpretive:
+          decision_rights.may_automate: MUST_BE_FALSE
+          warning: "Interpretive claims require additional empirical validation before automation"
+
+    relation:
+      required_fields:
+        - id
+        - title
+        - relation_type
+        - preservation_contract.invariants_preserved
+        - preservation_contract.invariants_not_preserved
+        - preservation_contract.known_loss
+        - oracles
+        - status_vector
+
+      cross_domain_enforcement:
+        - "If domain_a != domain_b, then oracles.minItems >= 2"
+        - "If relation_type in [causal_hypothesis, correlation], then falsifier.required = true"
+        - "If relation_type == metaphor, then decision_rights.may_automate = false"
+
+    metric:
+      required_fields:
+        - id
+        - name
+        - underlying_objective
+        - counter_metrics
+        - gaming_paths
+        - off_dashboard_audit.method
+        - off_dashboard_audit.cadence
+        - expiry.review_after_days
+
+      gaming_minimum: 1
+      counter_metric_minimum: 1
+
+    agent:
+      required_fields:
+        - id
+        - name
+        - mandate
+        - non_goals
+        - authority
+        - escalation_conditions
+        - audit.immutable_trace
+        - audit.independent_review_required
+
+      authority_checks:
+        - "If may_automate_consequential = true, then reversibility.has_kill_switch = true"
+        - "If max_automation_tier >= T3, then independent_oracles.minItems >= 1"
+        - "non_goals must not be empty"
+
+    decision:
+      required_fields:
+        - id
+        - title
+        - tier
+        - inputs
+        - uncertainty
+        - alternatives
+        - owner
+        - reversibility
+        - outcome_review.scheduled_date
+        - outcome_review.method
+
+      tier_enforcement:
+        T4:
+          - "reversibility.kill_switch_available = true"
+          - "commons_impact.required = true"
+          - "incentive_trace.required = true"
+          - "pre_mortem.required = true"
+          - "outcome_review.delayed_effects_check.required = true"
+
+  rejection_messages:
+    missing_relation_type: "Cross-domain relation rejected: relation_type is required"
+    missing_preservation_contract: "Cross-domain relation rejected: preservation_contract is required"
+    insufficient_oracles: "Cross-domain relation rejected: at least 2 independent oracles required where feasible"
+    missing_falsifier: "Claim rejected: falsifier is required for all claim types except metaphorical"
+    missing_status_vector: "Record rejected: three-axis status vector is required"
+    missing_scope: "Record rejected: scope and exclusion conditions are required"
+    metaphor_automation_attempt: "REJECTED: Metaphorical claims cannot be used to authorize automation"
