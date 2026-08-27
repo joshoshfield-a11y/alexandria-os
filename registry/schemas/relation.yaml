@@ -1,0 +1,111 @@
+# Relation Record Schema
+# Stores cross-domain mappings or translations.
+# Cannot proceed without: Relation type, preservation contract, independent oracles.
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: ARCF-Relation
+id: "https://alexandria.os/schemas/relation"
+
+type: object
+required:
+  - id
+  - kind
+  - title
+  - relation_type
+  - preservation_contract
+  - oracles
+  - status_vector
+
+properties:
+  id:
+    type: string
+    pattern: "^REL-[0-9]{4}-[0-9]+$"
+
+  kind:
+    const: "relation"
+
+  title:
+    type: string
+
+  relation_type:
+    enum: [reduction, equivalence, homomorphism, causal_hypothesis, schema_mapping, correlation, analogy, metaphor, other]
+
+  preservation_contract:
+    type: object
+    required: [invariants_preserved, invariants_not_preserved, known_loss]
+    properties:
+      invariants_preserved:
+        type: array
+        items: { type: string }
+      invariants_not_preserved:
+        type: array
+        items: { type: string }
+      known_loss:
+        type: array
+        items: { type: string }
+
+  oracles:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      properties:
+        name: { type: string }
+        method: { type: string }
+        independence: { type: string }
+        last_check: { type: string, format: date }
+
+  domain_a:
+    type: object
+    properties:
+      name: { type: string }
+      ontology: { type: string }
+      representative_claims:
+        type: array
+        items: { type: string }
+
+  domain_b:
+    type: object
+    properties:
+      name: { type: string }
+      ontology: { type: string }
+      representative_claims:
+        type: array
+        items: { type: string }
+
+  mapping:
+    type: object
+    properties:
+      inputs: { type: array, items: { type: string } }
+      transformation: { type: string }
+      outputs: { type: array, items: { type: string } }
+      causal_path: { type: string }
+
+  falsifier:
+    type: object
+    properties:
+      condition: { type: string }
+      threshold: { type: string }
+
+  countermodels:
+    type: array
+    items:
+      type: object
+      properties:
+        description: { type: string }
+        plausibility: { enum: [high, medium, low] }
+
+  status_vector:
+    type: object
+    properties:
+      semantic: { type: integer, minimum: 0, maximum: 5 }
+      implementation: { type: integer, minimum: 0, maximum: 5 }
+      operational: { type: integer, minimum: 0, maximum: 5 }
+
+  decision_rights:
+    type: object
+    properties:
+      may_inform: { type: boolean }
+      may_pilot: { type: boolean }
+      may_automate: { type: boolean }
+      may_block: { type: boolean }
