@@ -1,0 +1,76 @@
+# Drift and Reflexivity Validator
+# Any public metric, prompt, policy, or benchmark changes behavior
+# of agents and users who can see it.
+
+validator:
+  name: drift_reflexivity
+  version: "1.0.0"
+
+  reflexivity_principle: >
+    Observations and predictions can alter the systems they describe,
+    including by making predicted outcomes more or less likely.
+    Reflexivity means the observation or prediction modifies the
+    system being observed.
+
+  drift_triggers:
+    - agent_reward_or_ranking_signal_changes
+    - benchmark_published_or_becomes_deployment_gate
+    - prompt_template_changes_materially
+    - source_distribution_shifts
+    - new_tool_grants_broader_authority
+    - users_begin_optimizing_for_visible_metric
+    - policy_change_alters_incentive_structure
+    - model_update_changes_output_distribution
+    - new_competitor_enters_market
+    - regulatory_environment_changes
+
+  required_review_on_trigger:
+    drift_event:
+      required_fields:
+        - trigger_description
+        - expected_adaptation
+        - controls_to_deploy
+        - review_date
+
+      controls:
+        - blind_quality_sampling
+        - adversarial_task_suite
+        - delayed_user_outcome_check
+        - metric_randomization
+        - independent_evaluation
+        - user_survey
+        - behavioral_telemetry
+
+  anomaly_channels:
+    observation_states:
+      - unclassified
+      - contested
+      - unverified
+      - excluded_by_scope
+      - suspected_measurement_failure
+      - possible_reporting_suppression
+      - retired_but_retained
+
+    required_retention:
+      - rejected_mappings
+      - failed_experiments
+      - invalidated_claims
+      - deprecated_metrics
+      - retired_agents
+
+    purpose: >
+      A failed relation is not dead weight; it is a boundary marker
+      that prevents future agents from repeating a beautiful but
+      invalid translation.
+
+  self_confirming_loop_detector:
+    checks:
+      - "Does the system classify cases as risky/low-value?"
+      - "Does classification reduce access/trust/investment?"
+      - "Do outcomes worsen under reduced support?"
+      - "Are worsened outcomes used to validate original classification?"
+
+    if_all_true:
+      action: FLAG_FOR_IMMEDIATE_REVIEW
+      severity: CRITICAL
+      message: "Self-confirming feedback loop detected — model manufactures evidence it claims to discover"
