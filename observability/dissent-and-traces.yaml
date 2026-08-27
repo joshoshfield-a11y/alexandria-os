@@ -1,0 +1,69 @@
+# Dissent Preservation Layer
+# Public agreement is not a clean measurement of private belief.
+
+observability:
+  dissent_channels:
+    anonymous_reporting:
+      enabled: true
+      methods:
+        - encrypted_form
+        - dead_drop
+        - trusted_intermediary
+
+    anomaly_reporting:
+      survives_dominant_model_disagreement: true
+      required_fields:
+        - anomaly_description
+        - why_it_does_not_fit_current_model
+        - supporting_evidence
+        - reporter_confidence
+
+    rejected_evidence_log:
+      retention: permanent
+      required_fields:
+        - evidence_description
+        - stated_reason_for_rejection
+        - rejection_authority
+        - date
+        - appeal_path
+
+    minority_reports:
+      formal_mechanism: true
+      protection: "Cannot be deleted by majority vote"
+      visibility: "Accessible to all reviewers and auditors"
+
+  epistemic_injustice_defense:
+    testimonial_injustice: >
+      Prevent prejudice from causing a speaker's credibility to be
+      unfairly discounted. Require blind evaluation where possible.
+
+    hermeneutical_injustice: >
+      Ensure shared interpretive resources are sufficient for
+      experiences to be understood and communicated. Maintain
+      anomaly categories for unclassified experiences.
+
+  traces:
+    required_fields:
+      - timestamp
+      - agent_id
+      - tool_calls
+      - confidence
+      - exceptions
+      - human_overrides
+      - uncertainty_expressed
+
+    retention: 90_days_minimum
+    immutability: true
+
+  drift_monitoring:
+    metrics_to_track:
+      - source_distribution_shift
+      - output_distribution_change
+      - user_behavior_adaptation
+      - agent_reward_signal_change
+      - benchmark_performance_inflation
+
+    alert_thresholds:
+      source_shift: 0.15
+      output_drift: 0.20
+      behavior_change: 0.25
