@@ -1,0 +1,129 @@
+# Claim Record Schema
+# Stores factual, formal, causal, interpretive, or metaphorical assertions.
+# Cannot proceed without: Type, scope, evidence, falsifier, status vector.
+
+$schema: "http://json-schema.org/draft-07/schema#"
+title: ARCF-Claim
+id: "https://alexandria.os/schemas/claim"
+
+type: object
+required:
+  - id
+  - kind
+  - title
+  - statement
+  - claim_type
+  - scope
+  - status_vector
+  - evidence
+  - falsifier
+  - decision_rights
+  - review
+
+properties:
+  id:
+    type: string
+    pattern: "^CLM-[0-9]{4}-[0-9]+$"
+    description: "Unique claim identifier"
+
+  kind:
+    const: "claim"
+
+  title:
+    type: string
+    maxLength: 200
+
+  statement:
+    type: string
+    minLength: 10
+
+  claim_type:
+    enum: [empirical, formal, causal, implementation, operational, interpretive, metaphorical]
+
+  domain:
+    type: object
+    properties:
+      source: { type: string }
+      target: { type: string }
+
+  scope:
+    type: object
+    properties:
+      applies_when:
+        type: array
+        items: { type: string }
+      excludes:
+        type: array
+        items: { type: string }
+
+  status_vector:
+    type: object
+    required: [semantic, implementation, operational]
+    properties:
+      semantic:
+        enum: [absent, asserted, specified, tested, independently_tested, operationally_validated]
+      implementation:
+        enum: [absent, asserted, specified, tested, independently_tested, operationally_validated]
+      operational:
+        enum: [absent, asserted, specified, tested, independently_tested, operationally_validated]
+
+  evidence:
+    type: object
+    properties:
+      sources:
+        type: array
+        items:
+          type: object
+          properties:
+            type: { enum: [experiment, observation, formal_proof, simulation, expert_testimony, document] }
+            ref: { type: string }
+            provenance: { enum: [local_reproducible, external_verified, community_trusted, unverified] }
+      limitations:
+        type: array
+        items: { type: string }
+
+  mechanism:
+    type: object
+    properties:
+      inputs: { type: array, items: { type: string } }
+      transformation: { type: string }
+      outputs: { type: array, items: { type: string } }
+      failure_modes: { type: array, items: { type: string } }
+
+  falsifier:
+    type: object
+    required: [condition, threshold]
+    properties:
+      condition: { type: string }
+      threshold: { type: string }
+
+  decision_rights:
+    type: object
+    properties:
+      may_inform: { type: boolean }
+      may_pilot: { type: boolean }
+      may_automate: { type: boolean }
+      may_block: { type: boolean }
+
+  negative_space:
+    type: object
+    properties:
+      unclassified: { type: array, items: { type: string } }
+      contested: { type: array, items: { type: string } }
+      unverified: { type: array, items: { type: string } }
+      missing_data: { type: array, items: { type: string } }
+      excluded_population: { type: array, items: { type: string } }
+      unobservable_variables: { type: array, items: { type: string } }
+      likely_gaming_paths: { type: array, items: { type: string } }
+      known_failure_modes: { type: array, items: { type: string } }
+      unknown_unknowns: { type: array, items: { type: string } }
+
+  review:
+    type: object
+    required: [owner, next_review]
+    properties:
+      owner: { type: string }
+      next_review: { type: string, format: date }
+      downgrade_triggers:
+        type: array
+        items: { type: string }
