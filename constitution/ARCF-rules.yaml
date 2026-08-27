@@ -1,0 +1,119 @@
+# Alexandria Reality-Contact Framework — Governing Rules
+
+ARCF:
+  version: "1.0.0"
+
+  compact_doctrine:
+    - Do not confuse the representation with the reality it compresses
+    - Do not confuse coherence with truth
+    - Do not confuse a metric with the objective it approximates
+    - Do not confuse public agreement with private belief
+    - Do not confuse observed survivors with the whole population
+    - Do not confuse agent compliance with agent alignment
+    - Do not confuse a category with the thing categorized
+    - Do not confuse missing data with evidence of absence
+    - Do not remove an unexplained safeguard without recovering its failure mode
+    - Do not moralize structural incentive failures as individual vice
+    - Do not treat a shared resource as free because its depletion is delayed
+    - Do not grant irreversible authority to a claim that cannot survive independent falsification
+    - Keep metaphor alive, but keep it labeled
+    - Keep anomalies visible — they are where reality first disagrees with the model
+    - Make every system capable of admitting "I do not know, I may be wrong, and here is how to check"
+
+  governing_objective: >
+    Create a system where exploratory ideas can exist without masquerading as verified knowledge;
+    metaphors can generate hypotheses without becoming evidence;
+    measurements can inform action without replacing underlying reality;
+    agents can assist reasoning without gaining unearned epistemic authority;
+    formal systems can remain auditable without crushing anomalous evidence into invalid categories;
+    creative and symbolic work can retain power without making unsupported empirical claims.
+
+  map_territory_firewall:
+    layers:
+      - world: "The underlying process, event, person, or resource"
+      - observation: "A measurement, report, trace, memory, or record"
+      - representation: "A label, category, score, map, explanation, or model"
+      - decision: "An action taken because of the representation"
+    required_chain: "World -> Observation -> Representation -> Decision -> Outcome Audit"
+
+  metric_containment:
+    for_every_primary_metric_require:
+      - objective_statement: "What underlying condition the metric stands in for"
+      - counter_metric: "What harmful behavior could increase the metric while degrading the objective"
+      - gaming_model: "How would a capable actor optimize the score without serving its intent"
+      - off_dashboard_audit: "What outcome is measured outside the metric's own instrumented environment"
+      - expiry_rule: "When will the metric be reviewed, revised, randomized, or retired"
+
+  incentive_trace:
+    required_questions:
+      - Who gains from compliance?
+      - Who gains from superficial compliance?
+      - Who bears the cost of honesty, slowness, dissent, maintenance, or refusal?
+      - What becomes newly easy to fake?
+      - What becomes newly expensive to preserve?
+      - What behavior would a self-interested, competent actor choose under this rule?
+      - What happens after every affected actor adapts?
+
+  hidden_variable_discipline:
+    required_scan:
+      - survivorship: "Where are the failed cases using the same strategy?"
+      - selection: "Who or what never entered the observed sample?"
+      - cost: "What labor, time, health, capital, risk, or subsidy is omitted?"
+      - delay: "What harms or failures arrive after the reporting period?"
+      - externality: "Who bears the cost outside the measured boundary?"
+      - power: "Who cannot safely report disagreement or failure?"
+      - observability: "What cannot be logged, categorized, or cheaply measured?"
+
+  dissent_preservation:
+    required_mechanisms:
+      - anonymous_or_low_cost_reporting_channels
+      - anomaly_reporting_surviving_dominant_model_disagreement
+      - record_of_rejected_evidence_and_stated_reason
+      - distinction_between_low_confidence_and_low_status
+      - independent_review_paths
+      - protected_adversarial_testing
+      - formal_mechanism_for_minority_reports
+
+  fence_protocol:
+    before_deleting_safeguard_answer:
+      - original_failure_mode
+      - historical_incident
+      - current_function
+      - current_cost
+      - condition_changed
+      - replacement_control
+      - reversible_test
+      - rollback_plan
+
+  commons_ledger:
+    treated_as_commons:
+      - attention
+      - trust
+      - moderator_and_maintainer_labor
+      - team_focus
+      - context_window_capacity
+      - compute_budgets
+      - codebase_coherence
+      - documentation_quality
+      - community_norms
+      - public_credibility
+      - ecological_and_material_resources
+    operational_test: "Can the resource recover at least as fast as the system consumes it?"
+
+  agent_constitution:
+    every_agent_requires:
+      - mandate
+      - explicit_non_goals
+      - authority_boundary
+      - allowed_tools
+      - prohibited_actions
+      - data_sources
+      - data_provenance
+      - uncertainty_policy
+      - escalation_conditions
+      - independent_oracles
+      - audit_log
+      - reversibility
+      - kill_switch
+      - evaluation_suite
+      - reward_hacking_tests
