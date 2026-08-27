@@ -1,0 +1,60 @@
+# Authority Validator
+# Prevents claims from acquiring decision power they have not earned.
+
+validator:
+  name: authority
+  version: "1.0.0"
+
+  authority_matrix:
+    metaphorical:
+      may_inform: true
+      may_pilot: false
+      may_automate: false
+      max_tier: T0
+
+    interpretive:
+      may_inform: true
+      may_pilot: false
+      may_automate: false
+      max_tier: T1
+
+    hypothesis:
+      may_inform: true
+      may_pilot: true
+      may_automate: false
+      max_tier: T2
+
+    tested_mechanism:
+      may_inform: true
+      may_pilot: true
+      may_automate: bounded
+      max_tier: T3
+
+    operationally_validated:
+      may_inform: true
+      may_pilot: true
+      may_automate: bounded
+      max_tier: T4
+      requires: [kill_switch, independent_audit, appeals_process]
+
+  enforcement_rules:
+    - "A model may recommend a course of action, but only a claim with appropriate operational evidence and explicit safety boundaries may trigger an automated action"
+    - "Agent output is an evidence-bearing proposal, not a fact"
+    - "Fluent output is not evidence of privileged access"
+    - "Completion is not correctness"
+    - "Correctness on a benchmark is not operational safety"
+    - "A model's explanation is not a faithful account of its causal process"
+    - "No agent gets irreversible authority without external verification path"
+
+  status_vector_requirements:
+    semantic_minimum_for_pilot: 2
+    implementation_minimum_for_pilot: 3
+    operational_minimum_for_pilot: 1
+
+    semantic_minimum_for_automation: 3
+    implementation_minimum_for_automation: 4
+    operational_minimum_for_automation: 2
+
+    semantic_minimum_for_T4: 4
+    implementation_minimum_for_T4: 5
+    operational_minimum_for_T4: 3
