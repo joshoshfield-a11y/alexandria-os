@@ -1,0 +1,64 @@
+# Decision Tiers — Burden of Proof by Consequence Level
+
+# Not all outputs deserve the same burden of proof.
+# This prevents the common failure mode where an elegant prototype leaps
+# straight from "interesting" to "authoritative".
+
+decision_tiers:
+  T0_creative:
+    examples: [images, lyrics, symbols, speculative writing, generative art]
+    required_controls:
+      - clear_non_empirical_label
+    authority: "No architectural authority"
+    reversibility: "N/A"
+    audit: "Optional"
+
+  T1_exploratory:
+    examples: [hypothesis, conceptual mapping, research lead, symbolic interpretation]
+    required_controls:
+      - scope_declaration
+      - assumptions_list
+      - falsifier
+      - relation_type_if_cross_domain
+    authority: "May inform research direction"
+    reversibility: "Full"
+    audit: "Self-audit sufficient"
+
+  T2_reversible_pilot:
+    examples: [internal_agent_routing_experiment, new_ui_pattern_test, metric_prototype]
+    required_controls:
+      - baseline_measurement
+      - rollback_procedure
+      - independent_evaluation
+      - time_bound
+      - success_criteria_preregistered
+    authority: "May affect internal systems temporarily"
+    reversibility: "Full rollback within time bound"
+    audit: "Independent evaluator required"
+
+  T3_production_assist:
+    examples: [recommendation_engine, drafting_tool, code_completion, routing_suggestion]
+    required_controls:
+      - continuous_monitoring
+      - appeal_path_for_users
+      - human_review_gate
+      - counter_metric_tracking
+      - confidence_threshold
+    authority: "May assist but not decide consequential actions"
+    reversibility: "Human override always available"
+    audit: "Periodic independent audit"
+
+  T4_consequential_automation:
+    examples: [system_action_affecting_money, access_control, safety_critical, external_user_facing, irreversible_action]
+    required_controls:
+      - validated_mechanism_with_falsifier
+      - operational_evidence_from_field
+      - independent_audit_current
+      - hard_limits_and_kill_switch
+      - appeals_process_with_human_arbiter
+      - commons_impact_assessment
+      - incentive_trace_complete
+      - fence_review_for_removed_safeguards
+    authority: "May automate only within hard limits"
+    reversibility: "Kill switch + manual override + rollback plan"
+    audit: "Continuous independent audit + pre-mortem + post-outcome"
