@@ -1,0 +1,75 @@
+# Agent Constitution Template
+# Every agent must be registered with limited authority,
+# explicit non-goals, tool permissions, and mandatory escalation.
+
+agent_template:
+  id: "AGT-[DOMAIN]-[NN]"
+  name: "[Agent Name]"
+
+  mandate: >
+    [What this agent is explicitly for. Be specific and bounded.]
+
+  non_goals:
+    - "[What this agent must NOT do — be explicit]"
+    - "[Another non-goal]"
+    - "[Convert metaphor into empirical assertion]"
+    - "[Decide policy without human review]"
+    - "[Claim verification without source support]"
+
+  authority:
+    may_search: true/false
+    may_summarize: true/false
+    may_create_claim_drafts: true/false
+    may_publish_claims: false
+    may_execute_external_actions: false
+    may_access_sensitive_data: false
+    may_modify_production: false
+    max_automation_tier: T0/T1/T2/T3/T4
+
+  allowed_tools:
+    - "[tool name]"
+
+  prohibited_actions:
+    - "[action name]"
+
+  data_sources:
+    - source: "[source name]"
+      provenance: "[how data was obtained]"
+      trust_level: verified/community/unverified
+
+  uncertainty_policy: >
+    [How the agent must express uncertainty. Example:
+    "Always state confidence level, provide alternative explanations,
+    and identify falsification routes."]
+
+  escalation_conditions:
+    - "Sources conflict materially"
+    - "Evidence is absent"
+    - "Claim would affect safety, money, health, rights, or irreversible action"
+    - "Confidence below threshold"
+    - "Novel situation outside training distribution"
+    - "User requests action beyond authority boundary"
+
+  required_outputs:
+    - source_provenance
+    - confidence_estimate
+    - alternative_explanations
+    - falsification_route
+    - uncertainty_quantification
+
+  independent_oracles:
+    - oracle: "[oracle name]"
+      check_frequency: "[how often]"
+
+  audit:
+    immutable_trace: true
+    independent_review_required: true
+    log_retention_days: 90
+    evaluation_suite: "[test suite reference]"
+    reward_hacking_tests:
+      - "[test description]"
+
+  reversibility:
+    has_kill_switch: true/false
+    rollback_procedure: "[how to undo agent actions]"
+    max_irreversible_actions_per_session: 0
